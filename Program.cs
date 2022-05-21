@@ -9,107 +9,88 @@ namespace Calculator
             Menu();
         }
 
+        static float Operations(
+            EOperators operation,
+            float firstValue,
+            float secondValue
+        )
+        {
+            switch((int)operation){
+                case 1: return firstValue + secondValue;
+                case 2: return firstValue - secondValue;
+                case 3: return firstValue / secondValue;
+                case 4: return firstValue * secondValue;
+                default: return 0;
+            }
+        }
+
+        static void Calculator(EOperators operation)
+        {
+            string name = operation.ToString();
+            Console.Clear(); //Limpar a tela do console
+            Console.WriteLine(name.ToUpper());
+
+            Console.Write("First Value: ");
+            float firstValue = float.Parse(Console.ReadLine());
+
+            Console.Write("Second Value: ");
+            float secondValue = float.Parse(Console.ReadLine());
+
+            // Operations calculates the result based on the chosen arithmetic operation
+            float result = Operations(operation, firstValue, secondValue);
+
+            Console.WriteLine($"{char.ToUpper(name[0]) + name.Substring(1)}: {result}");
+            Console.ReadKey();
+            Menu();
+        }
+
         static void Menu(){
+            // Recupera uma matriz dos nomes do tipo EOperators
+            var Operators = Enum.GetNames(typeof(EOperators));
+
             Console.Clear();
-            Console.WriteLine("Opções: ");
-            Console.WriteLine("1 - Soma");
-            Console.WriteLine("2 - Subtração");
-            Console.WriteLine("3 - Divisão");
-            Console.WriteLine("4 - Multiplicação");
-            Console.WriteLine("5 - Sair");
+            Console.WriteLine("Options: ");
 
-            Console.WriteLine("-----------------");
-            Console.Write("Selecione uma opção: ");
-            short res = short.Parse(Console.ReadLine());
+            // It loops through the enum values and print the names
+            for(int i=1 ; i < Operators.Length + 1; i++)
+            {
+                Console.WriteLine($"{i} - {char.ToUpper(Operators[i - 1][0]) + Operators[i - 1].Substring(1)}");
+            }
 
-            switch(res){
-                case 1: Soma(); break;
-                case 2: Subtracao(); break;
-                case 3: Divisao(); break;
-                case 4: Multiplicacao(); break;
+            Console.WriteLine("-----------------------");
+            Console.Write("Select an option: ");
+
+            // Assigning the value inputed by the user to the operation variable with Parse conversion to short and then explicit conversion to EOperators
+            EOperators operation = (EOperators)short.Parse(Console.ReadLine());
+
+            switch((int)operation){
+                case 1: Calculator(operation); break;
+                case 2: Calculator(operation); break;
+                case 3: Calculator(operation); break;
+                case 4: Calculator(operation); break;
                 case 5: 
+                    Console.WriteLine("See you later!");
+                    Console.ReadKey();
                     Console.Clear();
                     System.Environment.Exit(0); 
                 break;
                 default:
-                    Console.WriteLine("Valor invalido.");
-                    Console.WriteLine("Tente Novamente!");
+                    Console.WriteLine("Invalid Value");
+                    Console.WriteLine("Try Again!");
                     Console.ReadKey();
                     Menu();
                 break;
             }
         }
+    }
 
-        static void Soma()
-        {
-            Console.Clear(); //Limpar a tela do console
-            Console.WriteLine("SOMA");
-
-            Console.Write("Primeiro valor: ");
-            float firstValue = float.Parse(Console.ReadLine());
-
-            Console.Write("Segundo valor: ");
-            float secondValue = float.Parse(Console.ReadLine());
-
-            float result = firstValue + secondValue;
-
-            Console.WriteLine($"Soma: {result}");
-            Console.ReadKey();
-            Menu();
-        }
-
-        static void Subtracao()
-        {
-            Console.Clear();
-            Console.WriteLine("SUBTRAÇÃO");
-
-            Console.Write("Primeiro valor: ");
-            float firstValue = float.Parse(Console.ReadLine());
-
-            Console.Write("Segundo valor: ");
-            float secondValue = float.Parse(Console.ReadLine());
-
-            float result = firstValue - secondValue;
-
-            Console.WriteLine($"Subtração: {result}");
-            Console.ReadKey(); 
-            Menu();     
-        }
-    
-        static void Divisao()
-        {
-            Console.Clear();
-            Console.WriteLine("DIVISÃO");
-
-            Console.Write("Primeiro valor: ");
-            float firstValue = float.Parse(Console.ReadLine());
-
-            Console.Write("Segundo valor: ");
-            float secondValue = float.Parse(Console.ReadLine());
-
-            float result = firstValue / secondValue;
-
-            Console.WriteLine($"Divisão: {result}");
-            Console.ReadKey();
-            Menu();
-        }
-    
-        static void Multiplicacao()
-        {
-            Console.Clear();
-            Console.WriteLine("MULTIPLICAÇÃO");
-
-            Console.Write("Primeiro Valor: ");
-            float firstValue = float.Parse(Console.ReadLine());
-
-            Console.Write("Segundo Valor: ");
-            float secondValue = float.Parse(Console.ReadLine());
-
-            float result = firstValue * secondValue;
-
-            Console.WriteLine($"Divisão {result}");
-            Console.ReadKey();
-            Menu();
-        }
+    // Arithmetic operators enum type
+    enum EOperators
+    {
+        sum = 1,
+        subtraction = 2,
+        division = 3,
+        multiplication = 4,
+        exit = 5
     }
 }
