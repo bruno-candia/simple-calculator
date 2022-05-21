@@ -49,6 +49,7 @@ namespace Calculator
             var Operators = Enum.GetNames(typeof(EOperators));
 
             Console.Clear();
+            Console.WriteLine("=== SIMPLE CALCULATOR ===");
             Console.WriteLine("Options: ");
 
             // It loops through the enum values and print the names
